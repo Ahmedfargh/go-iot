@@ -3,6 +3,7 @@ package main
 import (
 	AutoLoader "go-dashboard/internals/AutoLoader"
 	config "go-dashboard/internals/Config"
+	"go-dashboard/internals/Gprc"
 	routes "go-dashboard/internals/Routes"
 	seeders "go-dashboard/internals/Seeders"
 )
@@ -19,6 +20,9 @@ func InitConfiguration() {
 
 func main() {
 	InitConfiguration()
+
+	// Start gRPC server in the background
+	go gprc.StartGrpcServer()
 
 	r := routes.InitializeRoutes()
 	

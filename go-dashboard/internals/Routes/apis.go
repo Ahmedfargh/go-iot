@@ -60,7 +60,7 @@ func InitializeRoutes() *gin.Engine {
 		// Device Management
 		devices := api.Group("/devices")
 		{
-			devices.GET("/", deviceCtrl.GetAll) 
+			devices.GET("/", deviceCtrl.GetAll)
 			devices.POST("/", middlewares.PermissionMiddleware("manage-iot-devices"), deviceCtrl.Create)
 			devices.GET("/:id", deviceCtrl.GetByID)
 			devices.PUT("/:id", middlewares.PermissionMiddleware("manage-iot-devices"), deviceCtrl.Update)
