@@ -1,0 +1,28 @@
+# Binaries
+go-dashboard
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test coverage
+*.out
+
+# Dependency directories
+vendor/
+
+# Environment files
+.env
+!.env.example
+
+# Local uploads
+uploads/avatars/*
+!uploads/avatars/.gitkeep
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
