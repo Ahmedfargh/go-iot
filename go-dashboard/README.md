@@ -7,9 +7,10 @@ The backend service for the IoT management system, providing RESTful APIs for de
 - **Auth**: JWT-based authentication for admins and users.
 - **Device Management**: CRUD operations for IoT devices.
 - **RBAC**: Role-based access control with permissions.
-- **Real-time**: WebSocket integration for live data updates.
+- **Real-time**: WebSocket integration and gRPC server for cross-service authentication.
 - **Messaging**: RabbitMQ integration for asynchronous tasks.
 - **Database**: GORM with MySQL support and MongoDB integration.
+- **gRPC Server**: Provides authentication services to other microservices (e.g., `realtime`).
 
 ## Tech Stack
 

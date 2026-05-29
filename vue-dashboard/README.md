@@ -1,14 +1,15 @@
 # Vue Dashboard Frontend
 
-A modern, responsive dashboard for managing and monitoring IoT devices.
+The frontend dashboard for the Go IoT management system, providing a modern interface for managing and monitoring IoT devices.
 
 ## Features
 
-- **System Overview**: High-level metrics and system health.
-- **Device Management**: Interface for adding and monitoring IoT devices.
-- **Admin Management**: Manage users, roles, and permissions.
-- **Responsive Design**: Built with Tailwind CSS for various screen sizes.
-- **State Management**: Centralized state using Pinia.
+- **System Overview**: High-level metrics and system health monitoring.
+- **Device Management**: Interface for adding, updating, and monitoring IoT devices.
+- **Admin Management**: Comprehensive management of users, roles, and permissions.
+- **Real-time Updates**: Integrates with the `realtime` service for live notifications.
+- **Responsive Design**: Built with Tailwind CSS 4 for a seamless experience across devices.
+- **State Management**: Centralized state management using Pinia.
 
 ## Tech Stack
 
