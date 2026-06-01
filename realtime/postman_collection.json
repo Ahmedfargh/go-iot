@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "8b23f6e8-3a9a-4c2f-8b2b-6c4a8b23f6e8",
+		"name": "Realtime Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WebSocket Connection",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/ws",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"ws"
+					]
+				},
+				"description": "Establish a WebSocket connection. Requires Bearer token for authentication."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

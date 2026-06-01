@@ -8,11 +8,13 @@ import (
 )
 
 type EnvConfig struct {
-	DBUser     string
-	DBPassword string
-	DBHost     string
-	DBPort     string
-	DBName     string
+	DBUser         string
+	DBPassword     string
+	DBHost         string
+	DBPort         string
+	DBName         string
+	HTTP_PORT      string
+	MAIN_DASHBOARD string
 }
 
 var AppConfig EnvConfig
@@ -24,11 +26,13 @@ func LoadConfig() {
 	}
 
 	AppConfig = EnvConfig{
-		DBUser:     getEnv("DB_USER", "root"),
-		DBPassword: getEnv("DB_PASSWORD", ""),
-		DBHost:     getEnv("DB_HOST", "127.0.0.1"),
-		DBPort:     getEnv("DB_PORT", "3306"),
-		DBName:     getEnv("REALTIME_DB_NAME", "realtime"),
+		DBUser:         getEnv("DB_USER", "root"),
+		DBPassword:     getEnv("DB_PASSWORD", ""),
+		DBHost:         getEnv("DB_HOST", "127.0.0.1"),
+		DBPort:         getEnv("DB_PORT", "3306"),
+		DBName:         getEnv("REALTIME_DB_NAME", "realtime"),
+		HTTP_PORT:      getEnv("REALTIME_HTTP_PORT", "8081"),
+		MAIN_DASHBOARD: getEnv("MAIN_GO_DASHBOARD", "localhost:50051"),
 	}
 
 	log.Println("Realtime Configuration successfully loaded!")

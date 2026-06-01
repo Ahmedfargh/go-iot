@@ -2,9 +2,10 @@ package main
 
 import (
 	"log"
-	"realtime/internals/Config"
-	"realtime/internals/Models"
-	"realtime/internals/Routes"
+	config "realtime/internals/Config"
+	middleware "realtime/internals/MiddleWare"
+	models "realtime/internals/Models"
+	routes "realtime/internals/Routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,11 +23,12 @@ func main() {
 	r := gin.Default()
 
 	// Apply gRPC Auth Middleware
+	middleware.InitAuthClient()
 	r.Use(middleware.Authorizied())
 
 	// Register Routes
 	routes.RegisterWebSocketRoutes(r)
-
+	port := ":" + config.AppConfig.HTTP_PORT
 	log.Println("Realtime Service running on :8081")
-	r.Run(":8081")
+	r.Run(port)
 }
