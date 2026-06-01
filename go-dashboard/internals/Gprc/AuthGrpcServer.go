@@ -11,6 +11,7 @@ import (
 	authServices "go-dashboard/internals/Services/Auth"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 type AuthServer struct {
@@ -38,9 +39,19 @@ func StartGrpcServer() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
+
+	// 1. Load your TLS credentials
+	creds, err := credentials.NewServerTLSFromFile("server.crt", "server.key")
+	if err != nil {
+		log.Fatalf("failed to load certificates: %v", err)
+	}
+
+	// 2. Pass the creds to the gRPC server options
+	s := grpc.NewServer(grpc.Creds(creds))
+
 	authpb.RegisterAuthServiceServer(s, &AuthServer{})
-	fmt.Println("gRPC Auth Server listening on :50051")
+
+	fmt.Println("gRPC Auth Server listening on :50051 (Secure)")
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
