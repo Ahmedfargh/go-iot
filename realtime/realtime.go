@@ -6,7 +6,7 @@ import (
 	middleware "realtime/internals/MiddleWare"
 	models "realtime/internals/Models"
 	routes "realtime/internals/Routes"
-
+	"realtime/GRPC"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	// Apply gRPC Auth Middleware
 	middleware.InitAuthClient()
 	r.Use(middleware.Authorizied())
-
+	go Gprc.StartGrpcServer()
 	// Register Routes
 	routes.RegisterWebSocketRoutes(r)
 	port := ":" + config.AppConfig.HTTP_PORT
