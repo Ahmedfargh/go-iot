@@ -10,7 +10,6 @@ import (
 	authServices "go-dashboard/internals/Services/Auth"
 	crudServices "go-dashboard/internals/Services/Crud"
 	utils "go-dashboard/internals/Utils"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -54,7 +53,6 @@ func (ctrl *AdminCrudController) Create(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	// Extract roles and permissions from form
 	roles := c.PostFormArray("roles")
 	if len(roles) == 0 {

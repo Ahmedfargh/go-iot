@@ -17,6 +17,7 @@ func NewAdminService(repo interfaces.RepositoryInterface[models.Admin]) *AdminSe
 	return &AdminService{repo: repo}
 }
 func (s *AdminService) Create(admin *models.Admin) (*models.Admin, error) {
+	
 	existing, _ := s.repo.FindByWhere(map[string]interface{}{"email": admin.Email})
 	if len(existing) > 0 {
 		return nil, errors.New("this email address is already registered to an admin account")
@@ -29,7 +30,7 @@ func (s *AdminService) Create(admin *models.Admin) (*models.Admin, error) {
 
 	hash := sha256.Sum256([]byte(admin.Password))
 	admin.Password = hex.EncodeToString(hash[:])
-
+	fmt.Println(admin)
 	return s.repo.Create(admin)
 }
 func (s *AdminService) GetByID(id uint) (*models.Admin, error) {
