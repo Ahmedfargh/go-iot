@@ -1,0 +1,46 @@
+# TLS/SSL Certificates and Keys
+*.key
+*.pem
+server.crt
+ca.key
+ca.crt
+
+# Go binaries
+/go-dashboard/go-dashboard
+/realtime/realtime
+
+# Go build cache
+.golang-build-cache/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+.nuxt/
+.cache/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads
+uploads/
+
+# OS
+Thumbs.db
+.DS_Store
