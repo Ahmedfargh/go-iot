@@ -68,6 +68,7 @@ To simplify setup, you can use the following default ports:
 
 - **go-dashboard**: `http://localhost:8080`
 - **gRPC Auth**: `localhost:50051`
+- **gRPC Notification**: `localhost:50052`
 - **realtime**: `http://localhost:8081` (WebSockets)
 - **vue-dashboard**: `http://localhost:5173`
 
