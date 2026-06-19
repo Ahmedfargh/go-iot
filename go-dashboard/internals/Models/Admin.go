@@ -46,7 +46,7 @@ func (admin *Admin) AfterCreate(tx *gorm.DB) error {
 		Select("admins.id").
 		Joins("JOIN admin_roles ON admin_roles.admin_id = admins.id").
 		Joins("JOIN roles ON roles.id = admin_roles.role_id").
-		Where("roles.name = ?", "admin").
+		Where("roles.name = ?", "SuperAdmin").
 		Pluck("admins.id", &adminIDs).Error
 	if err!=nil{
 		fmt.Println("ERROR GETTING ADMIN")
@@ -57,7 +57,7 @@ func (admin *Admin) AfterCreate(tx *gorm.DB) error {
 	for i, v := range adminIDs {
 		ids[i] = int32(v)
 	}
-
+	fmt.Println("print admin ids:-",ids)
 	message_param := Notification.NotificationParam{
 		Message: "new admin called " + admin.Name + " has been created welcome him",
 		Ids:     ids,
