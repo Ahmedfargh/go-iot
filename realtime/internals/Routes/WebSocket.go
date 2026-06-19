@@ -6,10 +6,14 @@ import (
 	websockets "realtime/internals/WebSockets"
 	"realtime/internals/commen"
 
-	"strconv"
+	// "strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"log"
+	"fmt"
+	"realtime/internals/MiddleWare"
+	"reflect"
 )
 
 var upgrader = websocket.Upgrader{
@@ -19,30 +23,39 @@ var upgrader = websocket.Upgrader{
 		return true
 	},
 }
-var notificationService = websockets.NewNotificationService()
 
-func init() {
-	go notificationService.Run()
-}
 func RegisterWebSocketRoutes(r *gin.Engine) {
-	r.GET("/ws/notification", func(c *gin.Context) {
-		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-		client_id_str:= c.Query("id")
-		client_id, err := strconv.Atoi(client_id_str)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{	
-				"error": "Invalid client ID",
-			})
-			return
-		}
+		r.GET("/ws/notification",middleware.Authorizied(), func(c *gin.Context) {
+			val, exists := c.Get("user_id")
+			if !exists {
+				c.JSON(http.StatusUnauthorized, gin.H{"error": "User ID not found"})
+				return
+			}
+			fmt.Println(reflect.TypeOf(val),"-",val)
+			
 
-		client := commen.NewClient(int32(client_id), conn)
-		notificationService.RegisterClient(client)
+			
+
+			conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+			if err != nil {
+				fmt.Println("error line 48:-",err)
+				log.Printf("Upgrade error: %v", err)
+				return
+			}
+			var clientID int32
+
+			switch v := val.(type) {
+				case uint64:
+					clientID = int32(v)
+				case int64:
+					clientID = int32(v)
+				case int:
+					clientID = int32(v)
+				default:
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Unsupported User ID type"})
+					return
+			}
+			client := commen.NewClient(clientID, conn)
+			websockets.Notification_service.RegisterClient(client)
 	})
 }

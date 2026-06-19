@@ -1,6 +1,9 @@
 package commen
 
-import "github.com/gorilla/websocket"
+import (
+	"github.com/gorilla/websocket"
+	"fmt"
+)
 
 type Client struct {
 	ID    int32
@@ -23,6 +26,7 @@ func (c *Client) WritePump() {
 	for {
 		select {
 		case message, ok := <-c.Inbox:
+			fmt.Println(message)
 			if !ok {
 				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
 				return

@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"fmt"
 )
 
 // Global client to reuse the connection
@@ -47,11 +48,12 @@ func Authorizied() gin.HandlerFunc {
 
 		resp, err := authClient.IsAuth(ctx, &authpb.AuthRequest{Token: parts[1]})
 		if err != nil || !resp.Authenticated {
+			fmt.Println("unauthentecated")
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 			c.Abort()
 			return
 		}
-
+		fmt.Println(resp.UserId)
 		c.Set("user_id", resp.UserId)
 		c.Next()
 	}

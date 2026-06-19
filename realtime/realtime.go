@@ -8,6 +8,7 @@ import (
 	routes "realtime/internals/Routes"
 	"realtime/GRPC"
 	"github.com/gin-gonic/gin"
+	"realtime/internals/WebSockets"
 )
 
 func main() {
@@ -21,12 +22,13 @@ func main() {
 	}
 
 	r := gin.Default()
-
+	notification_service:=websockets.NewNotificationService()
 	// Apply gRPC Auth Middleware
 	middleware.InitAuthClient()
 	r.Use(middleware.Authorizied())
 	go Gprc.StartGrpcServer()
 	// Register Routes
+	go notification_service.Run()
 	routes.RegisterWebSocketRoutes(r)
 	port := ":" + config.AppConfig.HTTP_PORT
 	log.Println("Realtime Service running on :8081")
